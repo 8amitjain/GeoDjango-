@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <title>Sales Deed</title>
+</head>
+<body>
+<h2>Sales Deed</h2>
+
+<form method="post" class='Fwm Fwm2' data-fwm-url="{% url 'ajax-fwm-url' %}" data-fwm-url2="{% url 'ajax-fwm-url2' %}">
+  {% csrf_token %}
+  <table>
+    <tr>
+      <th>
+        <label class="form-label" for="id_name">Name:</label>
+      </th>
+      <td>
+        <input class="form-control" type="text" name="name" maxlength="124" required id="id_name">
+      </td>
+    </tr>
+
+
+    <tr>
+      <th>
+        <label for="id_address" class="form-label" >Address:</label>
+      </th>
+      <td>
+        <textarea class="form-control" name="address" id="id_address" rows="2" cols="50" required></textarea>
+      </td>
+    </tr>
+
+
+    <tr>
+      <th>
+        <label class="form-label" for="id_place">Place:</label>
+      </th>
+      <td>
+        <input class="form-control" type="text" name="place" maxlength="200" required id="id_place">
+      </td>
+    </tr>
+
+    <br>
+    <br>
+    <tr>
+      <th>
+        <label class="form-label" for="id_seller_name">Buyer Name:</label>
+      </th>
+      <td>
+        <input class="form-control" type="text" name="seller_name" maxlength="200" required id="id_seller_name">
+      </td>
+    </tr>
+
+
+    <tr>
+      <th>
+        <label for="id_seller_address" class="form-label" >Buyer Address:</label>
+      </th>
+      <td>
+        <textarea class="form-control" name="seller_address" id="id_seller_address" rows="2" cols="50" required></textarea>
+      </td>
+    </tr>
+
+
+  </table>
+  <br>
+  <br>
+  <input style="margin-left:5em;" class="btn btn-outline-info" type="submit" value="Submit">
+</form>
+
+</body>
+</html>

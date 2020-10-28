@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Nearby Shops</title>
+        <!-- Leaflet CSS -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+   integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+   crossorigin=""/>
+
+        <!-- Leaflet JS -->
+        <!-- Make sure you put this AFTER Leaflet's CSS -->
+ <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+   integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+   crossorigin=""></script>
+
+        <!-- Set map height -->
+        <style>
+            #mapid { height: 700px; }
+        </style>
+    </head>
+    <body>
+        <h1>Nearby Delivery</h1>
+        {% if delivery %}
+        <ul>
+        {% for d in delivery %}
+            <li>
+            {{ d.user }}: {{d.distance}}
+            </li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+
+        <!-- map div -->
+        <div id="mapid"></div>
+        <!-- map js  -->
+        <script>
+            var map = L.map('mapid').setView([21.00295182472697, 75.55928707122804], 17);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+            L.marker([{{buyer.location.y}}, {{buyer.location.x}}]).addTo(map).bindPopup('I am {{buyer.user}}.<br> Location:{{buyer.address}}.');
+
+
+            var shop = L.icon({
+                iconUrl: "{% static 'nearbyshops/shop.png' %}",
+                iconSize: [28, 50],
+                iconAnchor: [22, 50],
+                popupAnchor: [0, -0],
+            });
+
+             var delivery = L.icon({
+                iconUrl: "{% static 'nearbyshops/delivery.png' %}",
+                iconSize: [28, 50],
+                iconAnchor: [22, 50],
+                popupAnchor: [-3, -76],
+            });
+            var circle = L.circle([{{shop.location.y}},{{shop.location.x }}],
+             {  color: 'blue',
+                fillColor: 'blue',
+                fillOpacity: 0.5,
+                radius: 30
+            }).addTo(map);
+            L.marker([{{shop.location.y}}, {{shop.location.x}} ], {icon: shop}).addTo(map).bindPopup('I am {{shop.user}}<br> Location:{{shop.address}}.');
+
+           {% for d in delivery %}
+            var circle = L.circle([{{d.location.y}},{{d.location.x}}],
+             {  color: 'red',
+                fillColor: 'red',
+                fillOpacity: 0.5,
+                radius: 30
+            }).addTo(map);
+            L.marker([ {{d.location.y}}, {{d.location.x}} ], {icon: delivery}).addTo(map).bindPopup('I am {{d.user}}.');
+            {% endfor %}
+
+        </script>
+    </body>
+
+</html>
+
+

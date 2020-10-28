@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <title>Sales Deed</title>
+</head>
+<body>
+<h2>Sales Deed</h2>
+
+<form method="post" class='Fwm Fwm2' data-fwm-url="{% url 'ajax-fwm-gift' %}" data-fwm-url2="{% url 'ajax-fwm-gift2' %}">
+  {% csrf_token %}
+  <table>
+    <tr>
+      <th>
+        <label class="form-label" for="id_name">Name:</label>
+      </th>
+      <td>
+        <input class="form-control" type="text" name="name" maxlength="124" required id="id_name">
+      </td>
+    </tr>
+
+     <tr>
+      <th>
+        <label class="form-label" for="id_gender">Gender:</label>
+      </th>
+      <td>
+        <select class="form-control" name="gender" id="id_gender" required>
+          <option value="" selected>---------</option>
+          <option value="1">Male</option>
+          <option value="2">Female</option>
+        </select>
+      </td>
+    </tr>
+
+    <tr id='rel' style="display:none;">
+      <th>
+        <label style="display:none;" class="form-label" for="id_fwm"></label>
+        <select class="form-control" name="fwm" id="id_fwm" required>
+          <option value="" selected>---------</option>
+        </select>
+      </th>
+      <td>
+        <input class="form-control" type="text" name="fwm_name" id="id_fwm_name" required>
+      </td>
+    </tr>
+
+     <tr>
+      <th>
+        <label for="id_married" class="form-label" >Marital Status: &nbsp;</label>
+      </th>
+      <td>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="married" id="id_married">
+          <label class="form-check-label" for="id_married">
+            Married
+          </label>
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <th>
+        <label for="id_address" class="form-label" >Address:</label>
+      </th>
+      <td>
+        <textarea class="form-control" name="address" id="id_address" rows="2" cols="50" required></textarea>
+      </td>
+    </tr>
+
+    <tr>
+      <th>
+        <label class="form-label" for="id_occupation">Occupation:</label>
+      </th>
+      <td>
+        <input class="form-control" name="occupation" type=text id="id_occupation" required>
+      </td>
+    </tr>
+
+    <tr>
+      <th>
+        <label for="id_birth_date" class="form-label">Birth Date:</label>
+      </th>
+      <td>
+        <input class="form-control" type="date" name="birth_date" id="id_birth_date"  max='' required>
+      </td>
+    </tr>
+
+  </table>
+  <br>
+  <br>
+  <br>
+  <table>
+    <tr>
+      <th>
+        <label class="form-label" for="id_representative_name">Name:</label>
+      </th>
+      <td>
+        <input class="form-control" type="text" name="representative_name" maxlength="124" required id="id_representative_name">
+      </td>
+    </tr>
+
+     <tr>
+      <th>
+        <label class="form-label" for="id_representative_gender">Gender:</label>
+      </th>
+      <td>
+        <select class="form-control" name="representative_gender" id="id_representative_gender" required>
+          <option value="" selected>---------</option>
+          <option value="1">Male</option>
+          <option value="2">Female</option>
+        </select>
+      </td>
+    </tr>
+
+    <tr id='rel2' style="display:none;">
+      <th>
+        <label style="display:none;" class="form-label" for="id_representative_fwm"></label>
+        <select class="form-control" name="representative_fwm" id="id_representative_fwm" required>
+          <option value="" selected>---------</option>
+        </select>
+      </th>
+      <td>
+        <input class="form-control" name="representative_fwm_name" type=text id="id_representative_fwm_name" required>
+      </td>
+    </tr>
+
+     <tr>
+      <th>
+        <label for="id_representative_married" class="form-label" >Marital Status: &nbsp;</label>
+      </th>
+      <td>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name=representative_"married" id="id_representative_married">
+          <label class="form-check-label" for="id_representative_married">
+            Married
+          </label>
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <th>
+        <label for="id_representative_address" class="form-label" >Address:</label>
+      </th>
+      <td>
+        <textarea class="form-control" name="representative_address" id="id_representative_address" rows="2" cols="50" required></textarea>
+      </td>
+    </tr>
+
+    <tr>
+      <th>
+        <label class="form-label" for="id_representative_occupation">Occupation:</label>
+      </th>
+      <td>
+        <input class="form-control" name="representative_occupation" type=text id="id_representative_occupation" required>
+      </td>
+    </tr>
+
+    <tr>
+      <th>
+        <label for="id_representative_birth_date" class="form-label">Birth Date:</label>
+      </th>
+      <td>
+        <input class="form-control" type="date" name="representative_birth_date" id="id_representative_birth_date"  max='' required >
+      </td>
+    </tr>
+  </table>
+
+  <br>
+  <input style="margin-left:5em;" class="btn btn-outline-info" type="submit" value="Submit">
+</form>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+     $("#id_gender").change(function () {
+        const url = $(".Fwm").attr("data-fwm-url");
+        const fwm = $(this).val();
+        $("#rel").hide();
+        $('#id_fwm').val('');
+        $("#id_fwm_name").val('');
+
+
+        $.ajax({
+            url: url,
+            data: {
+                'gender_id': fwm
+            },
+            success: function (data) {
+                console.log(data);
+                $('#id_fwm').html(data);
+                $('#id_fwm').val(data);
+                $("#rel").show();
+
+            }
+        });
+    });
+
+
+    $("#id_representative_gender").change(function () {
+        const url2 = $(".Fwm2").attr("data-fwm-url2");
+        const fwm2 = $(this).val();
+        $("#rel2").hide();
+        $('#id_representative_fwm').val('');
+        $("#id_representative_fwm_name").val('');
+
+
+        $.ajax({
+            url: url2,
+            data: {
+                'gender_id2': fwm2
+            },
+            success: function (data) {
+                console.log(data);
+                $('#id_representative_fwm').html(data);
+                $('#id_representative_fwm').val(data);
+                $("#rel2").show();
+            }
+        });
+    });
+
+
+     $(function(){
+    var dtToday = new Date();
+
+    var month = dtToday.getMonth();
+    var day = dtToday.getDate();
+    var year = dtToday.getFullYear()  ;
+    month = month + 1
+    year = year - 18
+    if(month < 10)
+        month = '0' + month.toString();
+    if(day < 10)
+        day = '0' + day.toString();
+
+    var maxDate = year + '-' + month + '-' + day;
+    $('#id_birth_date').attr('max', maxDate);
+    $('#id_representative_birth_date').attr('max', maxDate);
+});
+</script>
+
+</body>
+</html>

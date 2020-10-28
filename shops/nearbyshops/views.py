@@ -1,32 +1,59 @@
-# from django.shortcuts import render
-from django.views import generic
-from django.contrib.gis.geos import Point
+from django.shortcuts import render
 from django.contrib.gis.db.models.functions import Distance
-from .models import Shop
+from .models import Shop, Delivery, Buyer
 from django.contrib.gis.geos import Point
-from osgeo import gdal
+from .forms import BuyerForm
 
-# hardcoded user location
-# get user's location from IP:
-# https://docs.djangoproject.com/en/1.11/ref/contrib/gis/geoip/
-# or get user's location from HTML:
-# https://www.w3schools.com/html/html5_geolocation.asp
-latitude = 75.55928707122804
-longitude = 21.00295182472697
-
-user_location = Point(longitude, latitude, srid=4326)
+longitude = 75.576073186409
+latitude = 21.010126703241255
 
 
-# Create your views here.
-class Home(generic.ListView):
-    model = Shop
-    context_object_name = "shops"
-    queryset = Shop.objects.annotate(
-        distance=Distance("location", user_location)
+def home(request):
+    shop_location = Point(longitude, latitude, srid=4326)
+
+    shop = Shop.objects.all()
+    buyer = Buyer.objects.all()
+
+    delivery = Delivery.objects.annotate(
+        distance=Distance("location", shop_location)
     ).order_by("distance")[0:6]
-    template_name = "shops/index.html"
-    # print(gdal.GetConfigOption('CHECK_WITH_INVERT_PROJ'))
-    # print(Point(2500000, 8500000, 0.0, srid=25832).transform('EPSG:4326', clone=True))
-# # @property
-# def distance(self):
-#     return Distance(m=distance(self.user_a.profile.location, self.user_b.profile.location).meters)
+    context = {
+        'shops': shop,
+        'delivery': delivery,
+        'buyer': buyer,
+
+    }
+    return render(request, 'shops/index.html', context)
+
+
+def home2(request, buyer, shop):
+    shop_location = Point(shop.location.x, shop.location.y, srid=4326)
+
+    delivery = Delivery.objects.annotate(
+        distance=Distance("location", shop_location)
+    ).order_by("distance")[0:6]
+    context = {
+        'shop': shop,
+        'delivery': delivery,
+        'buyer': buyer,
+        'buyer_name': buyer.user,
+    }
+    return render(request, 'shops/index2.html', context)
+
+
+def test_data(request):
+    if request.POST:
+        form = BuyerForm(request.POST)
+        if form.is_valid():
+            form.save(commit=False)
+            buyer = form.cleaned_data['buyer']
+            shop = form.cleaned_data['shop']
+            return home2(request, buyer, shop)
+    else:
+        form = BuyerForm
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'shops/form.html', context)
+

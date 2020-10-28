@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+   <meta charset="utf-8">
+    <title>Sales Report</title>
+    <style type="text/css">
+     @page {
+            size: A4;
+            margin: 1cm;
+        }
+    </style>
+  <title>Download</title>
+</head>
+<body>
+
+<center><h1 style="margin-top:2em;">Gift Deed</h1></center>
+
+<div style="margin:2em;font-size:20px;">
+
+  The DEED OF Gift is made and executed on this the {{day}} day of {{month}} {{year}} by
+
+  <br>
+
+  {% if sale_deed.gender.name == "Male" %}
+      Mr
+  {% elif sale_deed.married is True %}
+      Mrs
+  {% else %}
+      Miss
+  {% endif %}
+
+  {{sale_deed.name}} {{sale_deed.fwm.name}}, {{sale_deed.fwm_name}}, aged about {{sale_deed_age}} years, occupation: {{sale_deed.occupation}} Resident of D.No  {{sale_deed.address}}
+
+  <br>
+  <br>
+
+  Herein after called the donor
+			In Favour of
+
+
+  <br>
+  <br>
+
+
+  {% if sales_deed_representative.representative_gender.name == "Male" %}
+      Mr
+  {% elif sales_deed_representative.representative_married is True %}
+      Mrs
+  {% else %}
+      Miss
+  {% endif %}
+
+
+   {{sales_deed_representative.representative_name}} {{sales_deed_representative.representative_fwm.name}}, {{sales_deed_representative.representative_fwm_name}}, aged about {{sales_deed_representative_age}} years, occupation: {{sales_deed_representative.representative_occupation}} Resident of D.No  {{sales_deed_representative.representative_address}}
+    <br>
+    <br>
+    Herein after called the Donee
+
+</div>
+</body>
+</html>

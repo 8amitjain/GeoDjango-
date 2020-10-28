@@ -38,7 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "django.contrib.gis",  # enable geodjango
+
     'nearbyshops',
+    'deed',
+
+    'crispy_forms',
+    'mapwidgets',
+
+
 
 ]
 
@@ -68,24 +75,18 @@ TEMPLATES = [
         },
     },
 ]
-# GEOS_LIBRARY_PATH = r'H:\Software\QGIS 3.14.0\bin\geos_c.dll'
-# GDAL_LIBRARY_PATH = r'H:\Software\QGIS 3.14.0\bin\gdal204.dll'
 
 WSGI_APPLICATION = 'shops.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+GDAL_LIBRARY_PATH = r'E:\Coding\Python\GeoDjango3.6\venv\Lib\site-packages\osgeo\gdal301.dll'
 
-GDAL_LIBRARY_PATH = r'C:\Users\Intel\Desktop\Codeing\Python\GeoDjango3.6\venv\Lib\site-packages\osgeo\gdal301.dll'
-# GDAL_DATA = r'C:\Users\Intel\Desktop\Codeing\Python\GeoDjango3.6\venv\Lib\site-packages\osgeo\data\gdal'
-
-PROJ_DIR = r'C:\Users\Intel\Desktop\Codeing\Python\GeoDjango3.6\venv\Lib\site-packages\osgeo\data\proj'
+PROJ_DIR = r'E:\Coding\Python\GeoDjango3.6\venv\Lib\site-packages\osgeo\data\proj'
 
 DATABASES = {
     "default": {
         "ENGINE": "django.contrib.gis.db.backends.postgis",
-        "NAME": "shops",
+        "NAME": "demopostgis",
         "USER": "postgres",
         "PASSWORD": "amitjain",
         "HOST": "localhost",
@@ -126,8 +127,19 @@ USE_L10N = True
 
 USE_TZ = True
 
+GOOGLE_MAP_API_KEY = "AIzaSyBwRaz6Qcmyquj2GG5g4RChfBecOg641Qg"
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.0/howto/static-files/
+MAP_WIDGETS = {
+    "GooglePointFieldWidget": (
+        ("zoom", 15),
+        ("mapCenterLocation", [21.0064725, 75.5553983]),
+        ("markerFitZoom", 11),
+        ("GooglePlaceAutocompleteOptions", {'componentRestrictions': {'country': 'uk'}})
+    ),
+    "GOOGLE_MAP_API_KEY": GOOGLE_MAP_API_KEY,
+}
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
